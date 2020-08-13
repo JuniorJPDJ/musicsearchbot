@@ -17,6 +17,5 @@ telethon_settings:
 
 tidal_settings:
   country_code: PL
-  token: gsFXkJqGrUNoYMQPZe4k3WKwijnrp8iGSwn3bApe
 
 log_level: DEBUG

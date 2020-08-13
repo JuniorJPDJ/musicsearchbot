@@ -1,4 +1,5 @@
 import asyncio
+import re
 
 from telethon.tl.types import InputWebDocument
 import aiohttp
@@ -15,10 +16,17 @@ if __name__ == '__main__':
 
     async def start():
         async with aiohttp.ClientSession() as http_sess:
+            async with http_sess.get("https://listen.tidal.com/") as resp:
+                data = await resp.text()
+
+            async with http_sess.get(f"https://listen.tidal.com" + re.search(r'<script src=\"(/app.+?)\">', data)[1]) as resp:
+                data = await resp.text()
+
+            token = re.search(r"\:Object\(.\.isWindowsStore\)\(\)\?\".+?\"\:.\.default\.enableDesktopFeatures\?\".+?\"\:\"(.{40})\",.\=.\..\.USE_STAGE_APIS", data)[1]
 
             # types=ARTISTS,ALBUMS,TRACKS,VIDEOS,PLAYLISTS
 
-            async def track(query, builder, limit=10, country_code=config['tidal_settings']['country_code'], token=config['tidal_settings']['token']):
+            async def track(query, builder, limit=10, country_code=config['tidal_settings']['country_code']):
                 async with http_sess.get("https://listen.tidal.com/v1/search", params={
                     "types": "TRACKS", "includeContributors": "true", "countryCode": country_code, "limit": limit, "query": query
                 }, headers={
@@ -35,7 +43,7 @@ if __name__ == '__main__':
                         ) for el in (await resp.json())['tracks']['items']
                     ]
 
-            async def album(query, builder, limit=10, country_code=config['tidal_settings']['country_code'], token=config['tidal_settings']['token']):
+            async def album(query, builder, limit=10, country_code=config['tidal_settings']['country_code']):
                 async with http_sess.get("https://listen.tidal.com/v1/search", params={
                     "types": "ALBUMS", "includeContributors": "true", "countryCode": country_code, "limit": limit, "query": query
                 }, headers={
