@@ -2,7 +2,9 @@ version: '3.7'
 
 services:
   deezersearchbot:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.deezer
     volumes:
       - ./config.yml:/app/config.yml
     restart: unless-stopped

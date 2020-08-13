@@ -2,3 +2,4 @@ config.yml
 .idea/
 venv/
 *.session
+*.session-journal
