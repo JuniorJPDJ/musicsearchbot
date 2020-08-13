@@ -1,0 +1,8 @@
+version: '3.7'
+
+services:
+  deezersearchbot:
+    build: .
+    volumes:
+      - ./config.yml:/app/config.yml
+    restart: unless-stopped

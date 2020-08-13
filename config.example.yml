@@ -1,0 +1,18 @@
+# get it from @BotFather on Telegram
+# bot_token: 012345678:0123456789abcdef0123456789abcdef012
+
+telethon_settings:
+  # you can add (or remove) any of settings from here:
+  # https://docs.telethon.dev/en/latest/modules/client.html#telethon.client.telegrambaseclient.TelegramBaseClient
+  # any not filled value will take default value from @up
+  session: deezersearchbot
+  auto_reconnect: true
+  retry_delay: 15
+  connection_retries: -1
+  request_retries: 5
+  # get both of them from my.telegram.org
+  # more info: https://docs.telethon.dev/en/latest/basic/signing-in.html#signing-in
+  # api_id: 123456
+  # api_hash: 0123456789abcdef0123456789abcdef
+
+log_level: DEBUG

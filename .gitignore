@@ -1,0 +1,4 @@
+config.yml
+.idea/
+venv/
+*.session

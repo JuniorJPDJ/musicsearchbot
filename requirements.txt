@@ -1,0 +1,3 @@
+telethon[cryptg]
+aiohttp[speedups]
+pyyaml
