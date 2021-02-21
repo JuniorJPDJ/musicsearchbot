@@ -22,7 +22,7 @@ if __name__ == '__main__':
             async with http_sess.get(f"https://listen.tidal.com" + re.search(r'<script src=\"(/app.+?)\">', data)[1]) as resp:
                 data = await resp.text()
 
-            token = re.search(r"\:Object\(.\.isWindowsStore\)\(\)\?\".+?\"\:.\.default\.enableDesktopFeatures\?\".+?\"\:\"(.{40})\",.\=.\..\.USE_STAGE_APIS", data)[1]
+            token = re.search(r"const a=.+?.\.config\.enableDesktopFeatures\?\".+?\"\:\"(.{16})\"", data)[1]
 
             # types=ARTISTS,ALBUMS,TRACKS,VIDEOS,PLAYLISTS
 
