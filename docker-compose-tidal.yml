@@ -5,6 +5,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.tidal
-    volumes:
-      - ./config.yml:/app/config.yml
     restart: unless-stopped
+    environment:
+      TG_BOT_TOKEN: 012345678:0123456789abcdef0123456789abcdef012
+      TG_API_ID: 123456
+      TG_API_HASH: 0123456789abcdef0123456789abcdef
+      TIDAL_COUNTRY_CODE: PL

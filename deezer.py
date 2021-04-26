@@ -1,4 +1,5 @@
 import asyncio
+import os
 
 from telethon.tl.types import InputWebDocument
 import aiohttp
@@ -8,6 +9,12 @@ import generic_bot
 
 # TODO: search for artists, playlists and radios
 
+
+def env_constructor(loader, node):
+    return os.environ.get(loader.construct_scalar(node), None)
+
+
+yaml.SafeLoader.add_constructor("!env", env_constructor)
 
 if __name__ == '__main__':
     with open("config.yml", 'r') as f:

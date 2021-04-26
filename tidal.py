@@ -1,4 +1,5 @@
 import asyncio
+import os
 import re
 
 from telethon.tl.types import InputWebDocument
@@ -9,6 +10,12 @@ import generic_bot
 
 # TODO: search for artists and playlists
 
+
+def env_constructor(loader, node):
+    return os.environ.get(loader.construct_scalar(node), None)
+
+
+yaml.SafeLoader.add_constructor("!env", env_constructor)
 
 if __name__ == '__main__':
     with open("config.yml", 'r') as f:
@@ -22,7 +29,7 @@ if __name__ == '__main__':
             async with http_sess.get(f"https://listen.tidal.com" + re.search(r'<script src=\"(/app.+?)\">', data)[1]) as resp:
                 data = await resp.text()
 
-            token = re.search(r"const a=.+?.\.config\.enableDesktopFeatures\?\".+?\"\:\"(.{16})\"", data)[1]
+            token = re.search(r"\.enableDesktopFeatures\?\".+?\":\"(.{16})\"", data)[1]
 
             # types=ARTISTS,ALBUMS,TRACKS,VIDEOS,PLAYLISTS
 

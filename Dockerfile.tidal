@@ -10,6 +10,7 @@ RUN pip install -r requirements.txt \
 	&& apk del .build-deps
 
 COPY --chown=nobody:nogroup . .
+COPY --chown=nobody:nogroup config.example.yml config.yml
 USER nobody
 
 ENTRYPOINT [ "python", "tidal.py" ]
