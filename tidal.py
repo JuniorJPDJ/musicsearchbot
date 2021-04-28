@@ -46,7 +46,7 @@ if __name__ == '__main__':
                             thumb=InputWebDocument(
                                 url=f"https://resources.tidal.com/images/{el['album']['cover'].replace('-', '/')}/320x320.jpg",
                                 size=0, mime_type="image/jpeg", attributes=[],
-                            )
+                            ) if el['album']['cover'] is not None else None
                         ) for el in (await resp.json())['tracks']['items']
                     ]
 
@@ -63,7 +63,7 @@ if __name__ == '__main__':
                             thumb=InputWebDocument(
                                 url=f"https://resources.tidal.com/images/{el['cover'].replace('-', '/')}/320x320.jpg",
                                 size=0, mime_type="image/jpeg", attributes=[],
-                            )
+                            ) if el['cover'] is not None else None
                         ) for el in (await resp.json())['albums']['items']
                     ]
 
