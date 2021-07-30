@@ -3,7 +3,7 @@ FROM python:alpine
 WORKDIR /app
 
 RUN chown nobody:nogroup /app \
-	&& apk add --no-cache --virtual .build-deps gcc build-base libffi-dev libressl-dev
+	&& apk add --no-cache --virtual .build-deps gcc build-base libffi-dev libretls-dev
 
 ADD requirements.txt .
 RUN pip install -r requirements.txt \
