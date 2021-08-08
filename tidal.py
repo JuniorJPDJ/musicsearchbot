@@ -41,7 +41,8 @@ if __name__ == '__main__':
                 }) as resp:
                     return [
                         await builder.article(
-                            title=el['title'], text=el['url'],
+                            title=el['title'] if 'version' not in el or not el['version'] else f"{el['title']} ({el['version']})",
+                            text=el['url'],
                             description=f"Artist: {el['artists'][0]['name']}\nAlbum: {el['album']['title']}",
                             thumb=InputWebDocument(
                                 url=f"https://resources.tidal.com/images/{el['album']['cover'].replace('-', '/')}/320x320.jpg",
