@@ -26,7 +26,7 @@ if __name__ == '__main__':
             async with http_sess.get("https://listen.tidal.com/") as resp:
                 data = await resp.text()
 
-            async with http_sess.get(f"https://listen.tidal.com" + re.search(r'<script src=\"(/app.+?)\">', data)[1]) as resp:
+            async with http_sess.get(f"https://listen.tidal.com" + re.search(r'<script defer="defer" src=\"(/app.+?.js)\">', data)[1]) as resp:
                 data = await resp.text()
 
             token = re.search(r"\.enableDesktopFeatures\?\".+?\":\"(.{16})\"", data)[1]
