@@ -31,7 +31,7 @@ if __name__ == '__main__':
                             description=f"Artist: {el['artist']['name']}\nAlbum: {el['album']['title']}",
                             thumb=InputWebDocument(
                                 url=el['album']['cover_medium'], size=0, mime_type="image/jpeg", attributes=[],
-                            )
+                            ) if el['album']['cover_medium'] is not None else None
                         ) for el in (await resp.json())['data'] if el['type'] == "track"
                     ]
 
@@ -43,7 +43,7 @@ if __name__ == '__main__':
                             description=f"Artist: {el['artist']['name']}\nTracks: {el['nb_tracks']}",
                             thumb=InputWebDocument(
                                 url=el['cover_medium'], size=0, mime_type="image/jpeg", attributes=[],
-                            )
+                            ) if el['cover_medium'] is not None else None
                         ) for el in (await resp.json())['data'] if el['type'] == "album"
                     ]
 
