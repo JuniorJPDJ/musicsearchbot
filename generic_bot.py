@@ -20,7 +20,8 @@ async def main(config, modes):
     @client.on(events.InlineQuery)
     async def inline_handler(event):
         if not event.text or len(event.text) < 2:
-            await event.answer()
+            await event.answer([builder.article("Help message", description="Usage: .track/.t/.album/.a + title or just title for track",
+                                                text="Help message.")])
             return
 
         if not event.text.startswith("."):
