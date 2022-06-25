@@ -57,4 +57,7 @@ if __name__ == '__main__':
 
             await generic_bot.main(config, modes)
 
-    asyncio.get_event_loop().run_until_complete(start())
+    if os.name == "nt":
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+    
+    asyncio.run(start())
