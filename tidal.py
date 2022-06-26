@@ -22,7 +22,11 @@ if __name__ == '__main__':
         config = yaml.safe_load(f)
 
     async def start():
-        async with aiohttp.ClientSession() as http_sess:
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+        }
+
+        async with aiohttp.ClientSession(headers=headers) as http_sess:
             async with http_sess.get("https://listen.tidal.com/") as resp:
                 data = await resp.text()
 
