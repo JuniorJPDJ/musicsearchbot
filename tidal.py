@@ -33,7 +33,7 @@ if __name__ == '__main__':
             async with http_sess.get(f"https://listen.tidal.com" + re.search(r'<script (?:defer=\"defer\" )?src=\"(/app\..+?\.js)\"(?: defer=\"defer\")?>', data)[1]) as resp:
                 data = await resp.text()
 
-            token = re.search(r":\"(.{16})\":[a-zA-Z]+\(\)\?", data)[1]
+            token = re.findall(r"['\"]([a-zA-Z0-9]{16})['\"];", data)[-2]
 
             # types=ARTISTS,ALBUMS,TRACKS,VIDEOS,PLAYLISTS
 
