@@ -45,13 +45,13 @@ jobs:
         id: meta-deezer
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}/${{ github.repository }}/deezer
+          images: ${{ env.REGISTRY }}/${{ github.repository }}-deezer
           
       - name: Extract Docker metadata for Tidal
         id: meta-tidal
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.REGISTRY }}/${{ github.repository }}/tidal
+          images: ${{ env.REGISTRY }}/${{ github.repository }}-tidal
 
       - name: Build and push Docker image for Deezer
         id: build-and-push-deezer
