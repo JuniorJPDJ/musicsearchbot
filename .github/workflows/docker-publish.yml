@@ -48,7 +48,7 @@ jobs:
           context: .
           file: Dockerfile.deezer
           push: true
-          tags: ${{ env.REGISTRY }}/${{ github.repository }}:deezer
+          tags: ${{ github.repository }}:deezer
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -59,6 +59,6 @@ jobs:
           context: .
           file: Dockerfile.tidal
           push: true
-          tags: ${{ env.REGISTRY }}/${{ github.repository }}:tidal
+          tags: ${{ github.repository }}:tidal
           cache-from: type=gha
           cache-to: type=gha,mode=max
