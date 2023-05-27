@@ -1,0 +1,11 @@
+.git
+.gitignore
+.gitattributes
+.github
+.dockerignore
+__pycache__
+config.yml
+.idea/
+venv/
+*.session
+*.session-journal
