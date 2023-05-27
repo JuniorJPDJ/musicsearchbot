@@ -40,6 +40,18 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+        
+      - name: Extract Docker metadata for Deezer
+        id: meta-deezer
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository }}/deezer
+          
+      - name: Extract Docker metadata for Tidal
+        id: meta-tidal
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository }}/tidal
 
       - name: Build and push Docker image for Deezer
         id: build-and-push-deezer
@@ -48,7 +60,8 @@ jobs:
           context: .
           file: Dockerfile.deezer
           push: true
-          tags: ${{ github.repository }}:deezer
+          tags: ${{ steps.meta-deezer.outputs.tags }}
+          labels: ${{ steps.meta-deezer.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
@@ -59,6 +72,7 @@ jobs:
           context: .
           file: Dockerfile.tidal
           push: true
-          tags: ${{ github.repository }}:tidal
+          tags: ${{ steps.meta-tidal.outputs.tags }}
+          labels: ${{ steps.meta-tidal.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
