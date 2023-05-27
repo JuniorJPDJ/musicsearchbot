@@ -21,7 +21,7 @@ async def main(config, modes):
     async def inline_handler(event):
         if not event.text or len(event.text) < 2:
             await event.answer([builder.article("Help message", description="Usage: .track/.t/.album/.a + title or just title for track",
-                                                text="Help message.")])
+                                                text="Usage: .track/.t/.album/.a + title or just title for track")])
             return
 
         if not event.text.startswith("."):

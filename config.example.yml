@@ -21,5 +21,7 @@ telethon_settings:
 tidal_settings:
   # country_code: PL
   country_code: !env TIDAL_COUNTRY_CODE
+  # x-tidal-token header on API call when you open https://listen.tidal.com
+  token: !env TIDAL_TOKEN
 
 log_level: DEBUG

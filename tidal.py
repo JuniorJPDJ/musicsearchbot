@@ -23,17 +23,11 @@ if __name__ == '__main__':
 
     async def start():
         headers = {
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.0.0 Safari/537.36"
+            "User-Agent": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)"
         }
 
         async with aiohttp.ClientSession(headers=headers) as http_sess:
-            async with http_sess.get("https://listen.tidal.com/") as resp:
-                data = await resp.text()
-
-            async with http_sess.get(f"https://listen.tidal.com" + re.search(r'<script (?:defer=\"defer\" )?src=\"(/app\..+?\.js)\"(?: defer=\"defer\")?>', data)[1]) as resp:
-                data = await resp.text()
-
-            token = re.findall(r"['\"]([a-zA-Z0-9]{16})['\"];", data)[-2]
+            token = config['tidal_settings']['token']
 
             # types=ARTISTS,ALBUMS,TRACKS,VIDEOS,PLAYLISTS
 
