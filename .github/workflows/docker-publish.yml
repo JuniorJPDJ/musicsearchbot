@@ -47,7 +47,9 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ github.repository }}-deezer
           tags: |
-            # set latest tag for default branch
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=tag
             type=raw,value=latest,enable={{is_default_branch}}
           
       - name: Extract Docker metadata for Tidal
@@ -56,7 +58,9 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ github.repository }}-tidal
           tags: |
-            # set latest tag for default branch
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=tag
             type=raw,value=latest,enable={{is_default_branch}}
 
       - name: Build and push Docker image for Deezer
