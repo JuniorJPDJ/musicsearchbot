@@ -2,6 +2,7 @@ replicaCount: 1
 
 image:
   repository: ghcr.io/juniorjpdj/musicsearchbot-deezer
+  # if you want tidal search bot, use ghcr.io/juniorjpdj/musicsearchbot-tidal
   pullPolicy: Always
   tag: latest
 
