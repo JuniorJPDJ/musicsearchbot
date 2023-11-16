@@ -82,6 +82,7 @@ jobs:
           context: .
           file: Dockerfile.tidal
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta-tidal.outputs.tags }}
           labels: ${{ steps.meta-tidal.outputs.labels }}
           cache-from: type=gha
