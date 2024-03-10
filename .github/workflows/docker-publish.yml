@@ -9,7 +9,9 @@ on:
   schedule:
     - cron: '25 15 * * *'
   push:
-    branches: [ "master" ]
+    branches: 
+      - master
+  workflow_dispatch:
 
 env:
   # Use docker.io for Docker Hub if empty
