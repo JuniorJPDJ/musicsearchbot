@@ -17,7 +17,7 @@ def env_constructor(loader, node):
 yaml.SafeLoader.add_constructor("!env", env_constructor)
 
 
-async def build_track_entry(el):
+async def build_track_entry(builder, el):
     artist_label = f"Artist: {el['artist']['name']}"
     album_label = f"Album: {el['album']['title']}"
     explicit_label = "\nExplicit" if el["explicit_lyrics"] else ""
@@ -39,7 +39,7 @@ async def build_track_entry(el):
     )
 
 
-async def build_album_entry(el):
+async def build_album_entry(builder, el):
     artist_label = f"Artist: {el['artist']['name']}"
     tracks_label = f"Tracks: {el['nb_tracks']}"
     explicit_label = "\nExplicit" if el["explicit_lyrics"] else ""
@@ -74,7 +74,7 @@ if __name__ == "__main__":
                     params={"limit": limit, "q": query},
                 ) as resp:
                     return [
-                        await build_track_entry(el)
+                        await build_track_entry(builder, el)
                         for el in (await resp.json())["data"]
                         if el["type"] == "track"
                     ]
@@ -85,7 +85,7 @@ if __name__ == "__main__":
                     params={"limit": limit, "q": query},
                 ) as resp:
                     return [
-                        await build_album_entry(el)
+                        await build_album_entry(builder, el)
                         for el in (await resp.json())["data"]
                         if el["type"] == "album"
                     ]
