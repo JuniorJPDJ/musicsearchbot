@@ -17,8 +17,75 @@ def env_constructor(loader, node):
 
 yaml.SafeLoader.add_constructor("!env", env_constructor)
 
-if __name__ == '__main__':
-    with open("config.yml", 'r') as f:
+
+async def build_track_entry(el):
+    title = (
+        el["title"]
+        if "version" not in el or not el["version"]
+        else f"{el['title']} ({el['version']})"
+    )
+
+    artists = ", ".join(map(lambda artist: artist["name"], el["artists"]))
+    artists_label = f"Artists: {artists}" if len(artists) > 1 else f"Artist: {artists}"
+
+    album_label = f"Album: {el['album'['title']]}"
+
+    explicit = (
+        el["properties"]["content"] == "explicit"
+        if hasattr(el, "properties") and hasattr(el["properties"], "content")
+        else False
+    )
+    explicit_label = "\nExplicit" if explicit else ""
+
+    return await builder.article(
+        title,
+        text=el["url"],
+        description=f"{artists_label}\n{album_label}{explicit_label}",
+        thumb=(
+            InputWebDocument(
+                url=f"https://resources.tidal.com/images/{el['album']['cover'].replace('-', '/')}/320x320.jpg",
+                size=0,
+                mime_type="image/jpeg",
+                attributes=[],
+            )
+            if el["album"]["cover"] is not None
+            else None
+        ),
+    )
+
+
+async def build_album_entry(el):
+    artists = ", ".join(map(lambda artist: artist["name"], el["artists"]))
+    artists_label = f"Artists: {artists}" if len(artists) > 1 else f"Artist: {artists}"
+
+    tracks_label = f"Tracks: {el['numberOfTracks']}"
+
+    explicit = (
+        el["properties"]["content"] == "explicit"
+        if hasattr(el, "properties") and hasattr(el["properties"], "content")
+        else False
+    )
+    explicit_label = "\nExplicit" if explicit else ""
+
+    await builder.article(
+        title=el["title"],
+        text=el["url"],
+        description=f"{artists_label}\n{tracks_label}{explicit_label}",
+        thumb=(
+            InputWebDocument(
+                url=f"https://resources.tidal.com/images/{el['cover'].replace('-', '/')}/320x320.jpg",
+                size=0,
+                mime_type="image/jpeg",
+                attributes=[],
+            )
+            if el["cover"] is not None
+            else None
+        ),
+    )
+
+
+if __name__ == "__main__":
+    with open("config.yml", "r") as f:
         config = yaml.safe_load(f)
 
     async def start():
@@ -27,43 +94,52 @@ if __name__ == '__main__':
         }
 
         async with aiohttp.ClientSession(headers=headers) as http_sess:
-            token = config['tidal_settings']['token']
+            token = config["tidal_settings"]["token"]
 
             # types=ARTISTS,ALBUMS,TRACKS,VIDEOS,PLAYLISTS
 
-            async def track(query, builder, limit=10, country_code=config['tidal_settings']['country_code']):
-                async with http_sess.get("https://listen.tidal.com/v1/search", params={
-                    "types": "TRACKS", "includeContributors": "true", "countryCode": country_code, "limit": limit, "query": query
-                }, headers={
-                    "x-tidal-token": token
-                }) as resp:
+            async def track(
+                query,
+                builder,
+                limit=10,
+                country_code=config["tidal_settings"]["country_code"],
+            ):
+                async with http_sess.get(
+                    "https://listen.tidal.com/v1/search",
+                    params={
+                        "types": "TRACKS",
+                        "includeContributors": "true",
+                        "countryCode": country_code,
+                        "limit": limit,
+                        "query": query,
+                    },
+                    headers={"x-tidal-token": token},
+                ) as resp:
                     return [
-                        await builder.article(
-                            title=el['title'] if 'version' not in el or not el['version'] else f"{el['title']} ({el['version']})",
-                            text=el['url'],
-                            description=f"Artist: {el['artists'][0]['name']}\nAlbum: {el['album']['title']}",
-                            thumb=InputWebDocument(
-                                url=f"https://resources.tidal.com/images/{el['album']['cover'].replace('-', '/')}/320x320.jpg",
-                                size=0, mime_type="image/jpeg", attributes=[],
-                            ) if el['album']['cover'] is not None else None
-                        ) for el in (await resp.json())['tracks']['items']
+                        await build_track_entry(el)
+                        for el in (await resp.json())["tracks"]["items"]
                     ]
 
-            async def album(query, builder, limit=10, country_code=config['tidal_settings']['country_code']):
-                async with http_sess.get("https://listen.tidal.com/v1/search", params={
-                    "types": "ALBUMS", "includeContributors": "true", "countryCode": country_code, "limit": limit, "query": query
-                }, headers={
-                    "x-tidal-token": token
-                }) as resp:
+            async def album(
+                query,
+                builder,
+                limit=10,
+                country_code=config["tidal_settings"]["country_code"],
+            ):
+                async with http_sess.get(
+                    "https://listen.tidal.com/v1/search",
+                    params={
+                        "types": "ALBUMS",
+                        "includeContributors": "true",
+                        "countryCode": country_code,
+                        "limit": limit,
+                        "query": query,
+                    },
+                    headers={"x-tidal-token": token},
+                ) as resp:
                     return [
-                        await builder.article(
-                            title=el['title'], text=el['url'],
-                            description=f"Artist: {el['artists'][0]['name']}\nTracks: {el['numberOfTracks']}",
-                            thumb=InputWebDocument(
-                                url=f"https://resources.tidal.com/images/{el['cover'].replace('-', '/')}/320x320.jpg",
-                                size=0, mime_type="image/jpeg", attributes=[],
-                            ) if el['cover'] is not None else None
-                        ) for el in (await resp.json())['albums']['items']
+                        build_album_entry(el)
+                        for el in (await resp.json())["albums"]["items"]
                     ]
 
             modes = {
@@ -71,12 +147,12 @@ if __name__ == '__main__':
                 ".t": track,
                 ".track": track,
                 ".a": album,
-                ".album": album
+                ".album": album,
             }
 
             await generic_bot.main(config, modes)
 
     if os.name == "nt":
         asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-    
+
     asyncio.run(start())
