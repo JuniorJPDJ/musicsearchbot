@@ -18,7 +18,7 @@ def env_constructor(loader, node):
 yaml.SafeLoader.add_constructor("!env", env_constructor)
 
 
-async def build_track_entry(el):
+async def build_track_entry(builder, el):
     title = (
         el["title"]
         if "version" not in el or not el["version"]
@@ -54,7 +54,7 @@ async def build_track_entry(el):
     )
 
 
-async def build_album_entry(el):
+async def build_album_entry(builder, el):
     artists = ", ".join(map(lambda artist: artist["name"], el["artists"]))
     artists_label = f"Artists: {artists}" if len(artists) > 1 else f"Artist: {artists}"
 
@@ -116,7 +116,7 @@ if __name__ == "__main__":
                     headers={"x-tidal-token": token},
                 ) as resp:
                     return [
-                        await build_track_entry(el)
+                        await build_track_entry(builder, el)
                         for el in (await resp.json())["tracks"]["items"]
                     ]
 
@@ -138,7 +138,7 @@ if __name__ == "__main__":
                     headers={"x-tidal-token": token},
                 ) as resp:
                     return [
-                        build_album_entry(el)
+                        build_album_entry(builder, el)
                         for el in (await resp.json())["albums"]["items"]
                     ]
 
