@@ -67,7 +67,7 @@ async def build_album_entry(builder, el):
     )
     explicit_label = "\nExplicit" if explicit else ""
 
-    await builder.article(
+    return await builder.article(
         title=el["title"],
         text=el["url"],
         description=f"{artists_label}\n{tracks_label}{explicit_label}",

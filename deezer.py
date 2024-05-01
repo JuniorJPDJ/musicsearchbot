@@ -22,7 +22,7 @@ async def build_track_entry(builder, el):
     album_label = f"Album: {el['album']['title']}"
     explicit_label = "\nExplicit" if el["explicit_lyrics"] else ""
 
-    await builder.article(
+    return await builder.article(
         title=el["title"],
         text=el["link"],
         description=f"{artist_label}\n{album_label}{explicit_label}",
@@ -44,7 +44,7 @@ async def build_album_entry(builder, el):
     tracks_label = f"Tracks: {el['nb_tracks']}"
     explicit_label = "\nExplicit" if el["explicit_lyrics"] else ""
 
-    await builder.article(
+    return await builder.article(
         title=el["title"],
         text=el["link"],
         description=f"{artist_label}\n{tracks_label}{explicit_label}",
