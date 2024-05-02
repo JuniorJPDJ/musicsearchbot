@@ -1,6 +1,5 @@
 import asyncio
 import os
-import re
 
 from telethon.tl.types import InputWebDocument
 import aiohttp
@@ -25,11 +24,10 @@ async def build_track_entry(builder, el):
         else f"{el['title']} ({el['version']})"
     )
     artists = ", ".join(map(lambda artist: artist["name"], el["artists"]))
-    explicit = el.get("properties", {}).get("content", "") == "explicit"
 
     artists_label = f"Artists: {artists}" if len(artists) > 1 else f"Artist: {artists}"
     album_label = f"Album: {el['album']['title']}"
-    explicit_label = "🔞 " if explicit else ""
+    explicit_label = "🔞 " if el.get("explicit", False) else ""
 
     return await builder.article(
         title=f"{explicit_label}{title}",
@@ -50,14 +48,13 @@ async def build_track_entry(builder, el):
 
 async def build_album_entry(builder, el):
     artists = ", ".join(map(lambda artist: artist["name"], el["artists"]))
-    explicit = el.get("properties", {}).get("content", "") == "explicit"
 
     artists_label = f"Artists: {artists}" if len(artists) > 1 else f"Artist: {artists}"
     tracks_label = f"Tracks: {el['numberOfTracks']}"
-    explicit_label = "🔞 " if explicit else ""
+    explicit_label = "🔞 " if el.get("explicit", False) else ""
 
     return await builder.article(
-        title=f"{explicit_label}{el["title"]}",
+        title=f"{explicit_label}{el['title']}",
         text=el["url"],
         description=f"{artists_label}\n{tracks_label}",
         thumb=(

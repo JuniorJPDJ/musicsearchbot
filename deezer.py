@@ -23,7 +23,7 @@ async def build_track_entry(builder, el):
     explicit_label = "🔞 " if el["explicit_lyrics"] else ""
 
     return await builder.article(
-        title=f"{explicit_label}{el["title"]}",
+        title=f"{explicit_label}{el['title']}",
         text=el["link"],
         description=f"{artist_label}\n{album_label}",
         thumb=(
@@ -45,7 +45,7 @@ async def build_album_entry(builder, el):
     explicit_label = "🔞 " if el["explicit_lyrics"] else ""
 
     return await builder.article(
-        title=f"{explicit_label}{el["title"]}",
+        title=f"{explicit_label}{el['title']}",
         text=el["link"],
         description=f"{artist_label}\n{tracks_label}",
         thumb=(
