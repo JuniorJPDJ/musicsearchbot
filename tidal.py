@@ -24,17 +24,11 @@ async def build_track_entry(builder, el):
         if "version" not in el or not el["version"]
         else f"{el['title']} ({el['version']})"
     )
-
     artists = ", ".join(map(lambda artist: artist["name"], el["artists"]))
+    explicit = el.get("properties", {}).get("content", "") == "explicit"
+
     artists_label = f"Artists: {artists}" if len(artists) > 1 else f"Artist: {artists}"
-
-    album_label = f"Album: {el['album'['title']]}"
-
-    explicit = (
-        el["properties"]["content"] == "explicit"
-        if hasattr(el, "properties") and hasattr(el["properties"], "content")
-        else False
-    )
+    album_label = f"Album: {el['album']['title']}"
     explicit_label = "\nExplicit" if explicit else ""
 
     return await builder.article(
@@ -56,15 +50,10 @@ async def build_track_entry(builder, el):
 
 async def build_album_entry(builder, el):
     artists = ", ".join(map(lambda artist: artist["name"], el["artists"]))
+    explicit = el.get("properties", {}).get("content", "") == "explicit"
+
     artists_label = f"Artists: {artists}" if len(artists) > 1 else f"Artist: {artists}"
-
     tracks_label = f"Tracks: {el['numberOfTracks']}"
-
-    explicit = (
-        el["properties"]["content"] == "explicit"
-        if hasattr(el, "properties") and hasattr(el["properties"], "content")
-        else False
-    )
     explicit_label = "\nExplicit" if explicit else ""
 
     return await builder.article(
