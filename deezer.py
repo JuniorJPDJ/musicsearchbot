@@ -20,12 +20,12 @@ yaml.SafeLoader.add_constructor("!env", env_constructor)
 async def build_track_entry(builder, el):
     artist_label = f"Artist: {el['artist']['name']}"
     album_label = f"Album: {el['album']['title']}"
-    explicit_label = "\nExplicit" if el["explicit_lyrics"] else ""
+    explicit_label = "🔞 " if el["explicit_lyrics"] else ""
 
     return await builder.article(
-        title=el["title"],
+        title=f"{explicit_label}{el["title"]}",
         text=el["link"],
-        description=f"{artist_label}\n{album_label}{explicit_label}",
+        description=f"{artist_label}\n{album_label}",
         thumb=(
             InputWebDocument(
                 url=el["album"]["cover_medium"],
@@ -42,12 +42,12 @@ async def build_track_entry(builder, el):
 async def build_album_entry(builder, el):
     artist_label = f"Artist: {el['artist']['name']}"
     tracks_label = f"Tracks: {el['nb_tracks']}"
-    explicit_label = "\nExplicit" if el["explicit_lyrics"] else ""
+    explicit_label = "🔞 " if el["explicit_lyrics"] else ""
 
     return await builder.article(
-        title=el["title"],
+        title=f"{explicit_label}{el["title"]}",
         text=el["link"],
-        description=f"{artist_label}\n{tracks_label}{explicit_label}",
+        description=f"{artist_label}\n{tracks_label}",
         thumb=(
             InputWebDocument(
                 url=el["cover_medium"],
