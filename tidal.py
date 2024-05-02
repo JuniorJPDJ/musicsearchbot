@@ -29,12 +29,12 @@ async def build_track_entry(builder, el):
 
     artists_label = f"Artists: {artists}" if len(artists) > 1 else f"Artist: {artists}"
     album_label = f"Album: {el['album']['title']}"
-    explicit_label = "\nExplicit" if explicit else ""
+    explicit_label = "🔞 " if explicit else ""
 
     return await builder.article(
-        title,
+        title=f"{explicit_label}{title}",
         text=el["url"],
-        description=f"{artists_label}\n{album_label}{explicit_label}",
+        description=f"{artists_label}\n{album_label}",
         thumb=(
             InputWebDocument(
                 url=f"https://resources.tidal.com/images/{el['album']['cover'].replace('-', '/')}/320x320.jpg",
@@ -54,12 +54,12 @@ async def build_album_entry(builder, el):
 
     artists_label = f"Artists: {artists}" if len(artists) > 1 else f"Artist: {artists}"
     tracks_label = f"Tracks: {el['numberOfTracks']}"
-    explicit_label = "\nExplicit" if explicit else ""
+    explicit_label = "🔞 " if explicit else ""
 
     return await builder.article(
-        title=el["title"],
+        title=f"{explicit_label}{el["title"]}",
         text=el["url"],
-        description=f"{artists_label}\n{tracks_label}{explicit_label}",
+        description=f"{artists_label}\n{tracks_label}",
         thumb=(
             InputWebDocument(
                 url=f"https://resources.tidal.com/images/{el['cover'].replace('-', '/')}/320x320.jpg",
