@@ -1,5 +1,7 @@
 import asyncio
 import os
+import random
+import string
 
 from telethon.tl.types import InputWebDocument
 import aiohttp
@@ -36,6 +38,7 @@ async def build_track_entry(builder, el):
             if el["album"]["cover_medium"] is not None
             else None
         ),
+        id=''.join(random.choice(string.ascii_lowercase) for i in range(48)),
     )
 
 
@@ -58,6 +61,7 @@ async def build_album_entry(builder, el):
             if el["cover_medium"] is not None
             else None
         ),
+        id=''.join(random.choice(string.ascii_lowercase) for i in range(48)),
     )
 
 
