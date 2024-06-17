@@ -67,7 +67,7 @@ jobs:
 
       - name: Build and push Docker image for Deezer
         id: build-and-push-deezer
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: Dockerfile.deezer
@@ -79,7 +79,7 @@ jobs:
 
       - name: Build and push Docker image for Tidal
         id: build-and-push-tidal
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           context: .
           file: Dockerfile.tidal
