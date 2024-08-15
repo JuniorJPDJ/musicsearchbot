@@ -2,9 +2,10 @@ version: '3.7'
 
 services:
   deezersearchbot:
-    build:
-      context: .
-      dockerfile: Dockerfile.deezer
+    # build:
+    #   context: .
+    #   dockerfile: deezer.Dockerfile
+    image: ghcr.io/juniorjpdj/musicsearchbot-deezer
     restart: unless-stopped
     environment:
       TG_BOT_TOKEN: 012345678:0123456789abcdef0123456789abcdef012
