@@ -5,7 +5,7 @@ ARG         GCC_VERSION="14.2.0-r4"
 # renovate: datasource=repology depName=alpine_3_21/build-base versioning=loose
 ARG         BUILD_BASE_VERSION="0.5-r3"
 # renovate: datasource=repology depName=alpine_3_21/libffi-dev versioning=loose
-ARG         LIBFFI_VERSION="3.4.6-r0"
+ARG         LIBFFI_VERSION="3.4.7-r0"
 # renovate: datasource=repology depName=alpine_3_21/libretls-dev versioning=loose
 ARG         LIBRETLS_VERSION="3.7.0-r2"
 # renovate: datasource=repology depName=alpine_3_21/cargo versioning=loose
