@@ -1,4 +1,4 @@
 telethon==1.40.0
 cryptg==0.5.0.post0
 pyyaml==6.0.2
-aiohttp[speedups]==3.12.7
+aiohttp[speedups]==3.12.12
