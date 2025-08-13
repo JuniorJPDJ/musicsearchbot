@@ -1,4 +1,4 @@
-FROM        python:3.13.5-alpine@sha256:37b14db89f587f9eaa890e4a442a3fe55db452b69cca1403cc730bd0fbdc8aaf
+FROM        python:3.13.6-alpine@sha256:af1fd7a973d8adc761ee6b9d362b99329b39eb096ea3c53b8838f99bd187011e
 
 # renovate: datasource=repology depName=alpine_3_22/gcc versioning=loose
 ARG         GCC_VERSION="14.2.0-r6"
