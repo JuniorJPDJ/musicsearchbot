@@ -27,7 +27,7 @@ jobs:
       buildkit-mount-cache-ids-append-platform: true
       registry: ghcr.io
       registry-username: ${{ github.actor }}
-      image-name: ${{ github.repository }}
+      image-name: ${{ github.repository }}-deezer
       file: deezer.Dockerfile
     secrets:
       registry-password: ${{ secrets.GITHUB_TOKEN }}
@@ -48,7 +48,7 @@ jobs:
       buildkit-mount-cache-ids-append-platform: true
       registry: ghcr.io
       registry-username: ${{ github.actor }}
-      image-name: ${{ github.repository }}
+      image-name: ${{ github.repository }}-tidal
       file: tidal.Dockerfile
     secrets:
       registry-password: ${{ secrets.GITHUB_TOKEN }}
