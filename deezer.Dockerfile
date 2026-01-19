@@ -10,6 +10,8 @@ ARG         LIBFFI_VERSION="3.5.2-r0"
 ARG         LIBRETLS_VERSION="3.8.1-r0"
 # renovate: datasource=repology depName=alpine_3_23/cargo versioning=loose
 ARG         CARGO_VERSION="1.91.1-r0"
+# renovate: datasource=repology depName=alpine_3_23/cmake versioning=loose
+ARG         CMAKE_VERSION="4.1.3-r0"
 
 ARG         TARGETPLATFORM
 
@@ -28,6 +30,7 @@ RUN         --mount=type=cache,sharing=locked,target=/root/.cache,id=home-cache-
               libffi-dev=${LIBFFI_VERSION} \
               libretls-dev=${LIBRETLS_VERSION} \
               cargo=${CARGO_VERSION} \
+              cmake=${CMAKE_VERSION} \
             && \
             pip install -r requirements.txt && \
             apk del .build-deps && \
