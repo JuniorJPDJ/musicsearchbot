@@ -9,7 +9,7 @@ ARG         LIBFFI_VERSION="3.5.2-r0"
 # renovate: datasource=repology depName=alpine_3_23/libretls-dev versioning=loose
 ARG         LIBRETLS_VERSION="3.8.1-r0"
 # renovate: datasource=repology depName=alpine_3_23/cargo versioning=loose
-ARG         CARGO_VERSION="1.91.1-r0"
+ARG         CARGO_VERSION="1.91.1-r1"
 # renovate: datasource=repology depName=alpine_3_23/cmake versioning=loose
 ARG         CMAKE_VERSION="4.1.3-r0"
 
