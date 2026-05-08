@@ -18,6 +18,12 @@
         "repology"
       ],
       "groupName": "OS Packages"
+    },
+    {
+      "description": "Disable updates for JuniorJPDJ/containers docker-parallel-multiarch-build reusable workflow",
+      "matchDepNames": ["JuniorJPDJ/containers"],
+      "matchDatasources": ["github-actions"],
+      "enabled": false
     }
   ],
   "ignoreDeps": [
