@@ -19,7 +19,7 @@ jobs:
       # This is used to complete the identity challenge
       # with sigstore/fulcio when running outside of PRs.
       id-token: write
-    uses: JuniorJPDJ/containers/.github/workflows/docker-parallel-multiarch-build.yml@master
+    uses: JuniorJPDJ/containers/.github/workflows/docker-parallel-multiarch-build.yml@dc4ff6af5f08ce754dadc6fae97ba5f52714eb78 # master
     with:
       title: deezersearchbot
       platforms: 'linux/amd64,linux/386,linux/arm/v7,linux/arm64'
@@ -40,7 +40,7 @@ jobs:
       # This is used to complete the identity challenge
       # with sigstore/fulcio when running outside of PRs.
       id-token: write
-    uses: JuniorJPDJ/containers/.github/workflows/docker-parallel-multiarch-build.yml@master
+    uses: JuniorJPDJ/containers/.github/workflows/docker-parallel-multiarch-build.yml@dc4ff6af5f08ce754dadc6fae97ba5f52714eb78 # master
     with:
       title: tidalsearchbot
       platforms: 'linux/amd64,linux/386,linux/arm/v7,linux/arm64'
