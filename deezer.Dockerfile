@@ -1,17 +1,17 @@
 FROM        python:3.14.6-alpine@sha256:003970a263347645cd23d4f90929ad16ba7ce7d808ee4674ffcc93cb21cc289f
 
-# renovate: datasource=repology depName=alpine_3_23/gcc versioning=loose
-ARG         GCC_VERSION="15.2.0-r2"
-# renovate: datasource=repology depName=alpine_3_23/build-base versioning=loose
-ARG         BUILD_BASE_VERSION="0.5-r3"
-# renovate: datasource=repology depName=alpine_3_23/libffi-dev versioning=loose
-ARG         LIBFFI_VERSION="3.5.2-r0"
-# renovate: datasource=repology depName=alpine_3_23/libretls-dev versioning=loose
+# renovate: datasource=repology depName=alpine_3_24/gcc versioning=loose
+ARG         GCC_VERSION="15.2.0-r5"
+# renovate: datasource=repology depName=alpine_3_24/build-base versioning=loose
+ARG         BUILD_BASE_VERSION="0.5-r4"
+# renovate: datasource=repology depName=alpine_3_24/libffi-dev versioning=loose
+ARG         LIBFFI_VERSION="3.5.2-r1"
+# renovate: datasource=repology depName=alpine_3_24/libretls-dev versioning=loose
 ARG         LIBRETLS_VERSION="3.8.1-r0"
-# renovate: datasource=repology depName=alpine_3_23/cargo versioning=loose
-ARG         CARGO_VERSION="1.91.1-r2"
-# renovate: datasource=repology depName=alpine_3_23/cmake versioning=loose
-ARG         CMAKE_VERSION="4.1.3-r0"
+# renovate: datasource=repology depName=alpine_3_24/cargo versioning=loose
+ARG         CARGO_VERSION="1.96.0-r0"
+# renovate: datasource=repology depName=alpine_3_24/cmake versioning=loose
+ARG         CMAKE_VERSION="4.2.3-r0"
 
 ARG         TARGETPLATFORM
 
